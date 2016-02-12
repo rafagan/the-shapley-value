@@ -3,7 +3,7 @@ Source code of the algorithm (in lua) to calculate the Shapley Value, one of the
 
 Understand how it works: https://en.wikipedia.org/wiki/Shapley_value
 
-The algorithm is define by the given formula:
+The algorithm is defined by the given formula:
 
 
 ![alt tag](https://upload.wikimedia.org/math/d/2/8/d2831c6c752aa555486580008c6fe86c.png)
