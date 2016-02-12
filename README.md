@@ -46,11 +46,9 @@ function shapleyValueActionSet(N, i)
 		end)
 	end)
 
-	print(R)
-
 	return R
 end
 ```
 
 The code try to follow the formula literally as a study case, instead of be the most optimized.
-Just let me know if you have some doubts or suggestion. I really would appreciate if you test it in more Coalitional Game cases.
+Just let me know if you have some doubts or suggestions. I really would appreciate if you test it in more Coalitional Game cases.
