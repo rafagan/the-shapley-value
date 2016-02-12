@@ -1,5 +1,5 @@
 # the-shapley-value
-Source code of the algorithm (in lua) to calculate the Shapley Value, one of the main concepts from Cooperative Game Theory
+Source code of the algorithm (in lua) to calculate the Shapley Value, one of the main concepts from Cooperative Game Theory.
 
 Understand how it works: https://en.wikipedia.org/wiki/Shapley_value
 
@@ -12,7 +12,7 @@ The algorithm is defined by the given formula:
 Take care with the sum set notation, because it actually iterates over all permutations from the grand coalition. 
 All the S subsets from N \ {i} generated from permutation respects this rule, but you don't use all the subsets to calculate the 
 shapley value. For example, a power set of set with 3 elements returns 2^3 = 8 subsets, but in shapley value we'll only use 6 
-(|N|! = 3! = 6)
+(|N|! = 3! = 6).
 
 Wrong interpretation of set to be iterated in sum:
 ```lua
