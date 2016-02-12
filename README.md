@@ -11,7 +11,8 @@ The algorithm is define by the given formula:
 
 Take care with the sum set notation, because it actually iterates over all permutations from the grand coalition. 
 All the S subsets from N \ {i} generated from permutation respects this rule, but you don't use all the subsets to calculate the 
-shapley value. For example, a power set of set with 3 elements returns 2^3 = 8 subsets, but in shapley value we'll only use 6 (|N|! = 3! = 6)
+shapley value. For example, a power set of set with 3 elements returns 2^3 = 8 subsets, but in shapley value we'll only use 6 
+(|N|! = 3! = 6)
 
 Wrong interpretation of set to be iterated in sum:
 ```lua
@@ -49,7 +50,7 @@ function shapleyValueActionSet(N, i)
 
 	return R
 end
+```
 
 The code try to follow the formula literally as a study case, instead of be the most optimized.
 Just let me know if you have some doubts or suggestion. I really would appreciate if you test it in more Coalitional Game cases.
-```
