@@ -9,28 +9,45 @@ The algorithm is defined by the given formula:
 ![alt tag](https://upload.wikimedia.org/math/d/2/8/d2831c6c752aa555486580008c6fe86c.png)
 
 
-Take care with the sum set notation, because it actually iterates over all permutations from the grand coalition. 
+Take care with the sum set notation. 
 All the S subsets from N \ {i} generated from permutation respects this rule, but you don't use all the subsets to calculate the 
-shapley value. For example, a power set of set with 3 elements returns 2^3 = 8 subsets, but in shapley value we'll only use 6 
-(|N|! = 3! = 6).
+shapley value. You need to remove the duplicated elements:
 
-Wrong interpretation of set to be iterated in sum:
+Correct interpretation of set to be iterated in sum:
 ```lua
--- Return all the subsets from N, subtracted by i (If you wanna try, replace shapleyValueActionSet by that call)
-function shapleyValueActionSetTest(N, i)
+function shapleyValueActionSet(N, i)
 	local P = powerSet(N)
 	local R = set{}
+
 	forEach(P, function(p)
-		R = union(R, set{subtract(p, set{i})})
+		local subset = set{subtract(p, set{i})}
+		if not isSubsetOrEquals(subset, R) then R = union(R, subset) end
 	end)
 
 	return R
 end
 ```
 
-Correct interpretation of set to be iterated in sum:
+Wrong interpretation of set to be iterated in sum:
 ```lua
 function shapleyValueActionSet(N, i)
+	local P = powerSet(N)
+	local R = set{}
+
+	forEach(P, function(p)
+		local subset = set{subtract(p, set{i})}
+		R = union(R, subset) --Here is the problem, you'll have duplicated elements
+	end)
+
+	return R
+end
+```
+
+I also tried to play with permutations:
+```lua
+-- Returns the set which will be iterated in sum in shapley value algorithm, using set generated from permutations of N elements
+-- It's slower than shapleyValueActionSet
+function shapleyValueActionSetPermutations(N, i)
 	local permutations = permutations(setToArray(N))
 	local R = set{}
 
@@ -39,7 +56,9 @@ function shapleyValueActionSet(N, i)
 
 		forEach(p, function(_, v)
 			if v == i then
-				R = union(R, set{newSet})
+				local subset = set{newSet}
+				if not isSubsetOrEquals(subset, R) then R = union(R, subset) end
+				--R = union(R, subset)
 				return "BREAK"
 			end
 			newSet[v] = true
@@ -47,6 +66,19 @@ function shapleyValueActionSet(N, i)
 	end)
 
 	return R
+end
+
+-- Return all the possible permutations from array (|array|!)
+function permutations(array)
+	if #array == 1 then
+		return array
+	elseif #array == 2 then
+		return {{array[1], array[2]}, {array[2], array[1]}}
+	else
+		local result = {}
+		__recursivePermutations(array, result, 1)
+		return result
+	end
 end
 ```
 
