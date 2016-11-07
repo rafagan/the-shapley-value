@@ -84,3 +84,5 @@ end
 
 The code try to follow the formula literally as a study case, instead of be the most optimized.
 Just let me know if you have some doubts or suggestions. I really would appreciate if you test it in more Coalitional Game cases.
+
+Made with Lua 5.3.2
